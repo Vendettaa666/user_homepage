@@ -10,17 +10,24 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("HOME"),
-        backgroundColor: Colors.blue,
+              title: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text("HOME", style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white)),
+              ),        
+              backgroundColor: Color(0xFF018ABE),
         ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Contoh navigasi dan perubahan judul
-            Navigator.pushNamed(context, '/info'); // Ganti dengan route yang sesuai
-            Provider.of<HeaderTitleProvider>(context, listen: false).setTitle('Info');
-          },
-          child: const Text('Go to Info Page'),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFF018ABE)
+        ),
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () {
+            },
+            child: Text('Go to Info Page', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ),
         ),
       ),
       

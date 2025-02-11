@@ -15,13 +15,13 @@ class UserNavbar extends StatefulWidget {
 class UserNavbarState extends State<UserNavbar> {
   int currentPageIndex = 0;
 
-  // Menambahkan properti untuk mengontrol visibilitas FAB
+
   bool showFab = false;
 
   @override
   void initState() {
     super.initState();
-    // Set FAB visible saat pertama kali masuk ke home
+
     showFab = true;
   }
 
@@ -36,7 +36,7 @@ class UserNavbarState extends State<UserNavbar> {
         const ProfilePage(),
       ][currentPageIndex],
       
-      // Tambahkan kondisi untuk menampilkan FAB hanya di halaman home
+
       floatingActionButton: showFab 
           ? FloatingActionButton(
               onPressed: () {
@@ -59,7 +59,13 @@ class UserNavbarState extends State<UserNavbar> {
                 );
               },
               backgroundColor: Colors.blue,
-              child: const Icon(Icons.add_alert),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.add_alert),
+                  Text('Alert', style: TextStyle(fontSize: 12)),
+                ],
+              ),
             )
           : null,
 
@@ -68,16 +74,35 @@ class UserNavbarState extends State<UserNavbar> {
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
-            // Update visibility FAB berdasarkan halaman yang dipilih
             showFab = index == 0;
           });
         },
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: "home"),
-          NavigationDestination(icon: Icon(Icons.shopping_cart), label: "cart"),
-          NavigationDestination(icon: Icon(Icons.search), label: "search"),
-          NavigationDestination(icon: Icon(Icons.history), label: "history"),
-          NavigationDestination(icon: Icon(Icons.person), label: "profile"),
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home),
+            label: "home"
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.shopping_cart_outlined),
+            selectedIcon: Icon(Icons.shopping_cart),
+            label: "cart"
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.search_outlined),
+            selectedIcon: Icon(Icons.search),
+            label: "search"
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.history_outlined),
+            selectedIcon: Icon(Icons.history),
+            label: "history"
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person_outline),
+            selectedIcon: Icon(Icons.person),
+            label: "profile"
+          ),
         ],
       ),
     );
