@@ -7,9 +7,17 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text('Halaman Riwayat')),
-      body: Center(child: const Text('Konten Halaman Riwayat')),
+        title: Center(
+          child: Text(
+            "HISTORY",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+            )
+          ),
+        ),
+        backgroundColor: Color(0xFF018ABE),
+      ),
     );
   }
 }

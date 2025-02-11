@@ -5,10 +5,17 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text('Halaman Profile')),
-      body: Center(child: const Text('Konten Halaman Profile')),
+      appBar: AppBar(title: Center(
+          child: Text(
+            "PROFILE",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+            )
+          ),
+        ),
+        backgroundColor: Color(0xFF018ABE),
+      ),
     );
   }
 }

@@ -6,10 +6,17 @@
     @override
     Widget build(BuildContext context) {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          title: const Text('Halaman Pencarian')),
-        body: const Center(child: Text('Konten Halaman Pencarian')),
+        appBar: AppBar(title: Center(
+          child: Text(
+            "SEARCH",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+            )
+          ),
+        ),
+        backgroundColor: Color(0xFF018ABE),
+      ),
       );
     }
   }
