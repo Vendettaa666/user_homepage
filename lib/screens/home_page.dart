@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_homepage/screens/widget/foodcard.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: const Color(0xFF018ABE),
       ),
-      body: SingleChildScrollView( // Tambahkan SingleChildScrollView
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset(
-                      'assets/makanan_recomended1.jpg', // Perbaikan path gambar
+                      '../assets/steak.jpg',
                       height: 250,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -47,7 +48,7 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            const Padding( // Tambahkan const jika tidak ada perubahan state
+            const Padding(
               padding: EdgeInsets.all(18.0),
               child: Text(
                 'Jenis Item:',
@@ -58,90 +59,56 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            // Gunakan ListView.builder untuk menampilkan daftar makanan
             ListView.builder(
-              shrinkWrap: true, // Penting untuk ListView di dalam Column
-              physics: const NeverScrollableScrollPhysics(), // Non-aktifkan scrolling ListView
-              itemCount: 2, // Ganti dengan jumlah item makanan Anda
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 6,
               itemBuilder: (context, index) {
+                final Map<String, Map<String, dynamic>> foodItems = {
+                  '0': {
+                    'path': '../assets/miepedas.jpg',
+                    'title': 'Mie Pedas',
+                    'price': 'Rp 10.000'
+                  },
+                  '1': {
+                    'path': '../assets/soto.jpg',
+                    'title': 'Soto',
+                    'price': 'Rp 10.000'
+                  },
+                  '2': {
+                    'path': '../assets/steak-daging.jpg',
+                    'title': 'Steak Daging',
+                    'price': 'Rp 12.000'
+                  },
+                  '3': {
+                    'path': '../assets/sateayam.jpg',
+                    'title': 'Sate Ayam',
+                    'price': 'Rp 15.000'
+                  },
+                  '4': {
+                    'path': '../assets/pancake.jpg',
+                    'title': 'Pancake',
+                    'price': 'Rp 25.000'
+                  },
+                  '5': {
+                    'path': '../assets/essusu.jpeg',
+                    'title': 'Es Susu',
+                    'price': 'Rp 10.000'
+                  },
+                };
+                
+                Map<String, dynamic> item = foodItems[index.toString()]!;
                 return FoodCard(
-                  imagePath: index == 0 ? '../assets/miepedas.jpg' : '../assets/soto.jpg', // Ganti path gambar sesuai kebutuhan
-                  title: index == 0 ? 'Mie Pedas' : 'Soto', // Ganti judul sesuai kebutuhan
-                  price: 'Rp 10.000', // Ganti harga sesuai kebutuhan
+                  imagePath: item['path'],
+                  title: item['title'],
+                  price: item['price'],
                 );
               },
             ),
+            
           ],
         ),
-      ),
+      ),    
     );
   }
 }
-  class FoodCard extends StatelessWidget {
-    final String imagePath;
-    final String title;
-    final String price;
-
-    const FoodCard({
-      Key? key,
-      required this.imagePath,
-      required this.title,
-      required this.price,
-    }) : super(key: key);
-
-    @override
-    Widget build(BuildContext context) {
-      return Card(
-        margin: const EdgeInsets.all(8.0),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.asset(
-                  imagePath,
-                  height: 100,
-                  width: 150,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      price,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Tambahkan logika untuk menambahkan ke keranjang
-                        },
-                        child: const Text('Add To Cart'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-  }
