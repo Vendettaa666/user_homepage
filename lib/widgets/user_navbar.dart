@@ -14,14 +14,11 @@ class UserNavbar extends StatefulWidget {
 
 class UserNavbarState extends State<UserNavbar> {
   int currentPageIndex = 0;
-
-
   bool showFab = false;
 
   @override
   void initState() {
     super.initState();
-
     showFab = true;
   }
 
@@ -35,17 +32,17 @@ class UserNavbarState extends State<UserNavbar> {
         const HistoryPage(),
         const ProfilePage(),
       ][currentPageIndex],
-      
 
-      floatingActionButton: showFab 
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: showFab
           ? FloatingActionButton(
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: const Text('News Alert'),
-                      content: const Text('Welcome to our News App!'),
+                      title: const Text('Search'),
+                      content: const Text('Search feature is under development.'),
                       actions: [
                         TextButton(
                           onPressed: () {
@@ -58,52 +55,51 @@ class UserNavbarState extends State<UserNavbar> {
                   },
                 );
               },
-              backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.add_alert),
-                  Text('Alert', style: TextStyle(fontSize: 12)),
-                ],
-              ),
+              shape: const CircleBorder(),
+              child: const Icon(Icons.search, size: 28),
             )
           : null,
 
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: currentPageIndex,
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-            showFab = index == 0;
-          });
-        },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: "home"
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.shopping_cart_outlined),
-            selectedIcon: Icon(Icons.shopping_cart),
-            label: "cart"
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.search_outlined),
-            selectedIcon: Icon(Icons.search),
-            label: "search"
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.history_outlined),
-            selectedIcon: Icon(Icons.history),
-            label: "history"
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: "profile"
-          ),
-        ],
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 8.0,
+        child: NavigationBar(
+          selectedIndex: currentPageIndex,
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+              showFab = index == 0;
+            });
+          },
+          indicatorColor: Colors.blue.withOpacity(0.5),
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: "home",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.shopping_cart_outlined),
+              selectedIcon: Icon(Icons.shopping_cart),
+              label: "cart",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.search_outlined),
+              selectedIcon: Icon(Icons.search),
+              label: "search",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.history_outlined),
+              selectedIcon: Icon(Icons.history),
+              label: "history",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person_outline),
+              selectedIcon: Icon(Icons.person),
+              label: "profile",
+            ),
+          ],
+        ),
       ),
     );
   }

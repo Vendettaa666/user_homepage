@@ -1,19 +1,38 @@
 import 'package:flutter/material.dart';
-  class FoodCard extends StatelessWidget {
-    final String imagePath;
-    final String title;
-    final String price;
+import 'package:user_homepage/screens/infoproduct.dart';
 
-    const FoodCard({
-      Key? key,
-      required this.imagePath,
-      required this.title,
-      required this.price,
-    }) : super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
-      return Card(
+class FoodCard extends StatelessWidget {
+  final String imagePath;
+  final String title;
+  final String price;
+  final String description; // Tambahkan ini
+
+  const FoodCard({
+    Key? key,
+    required this.imagePath,
+    required this.title,
+    required this.price,
+    required this.description, // Tambahkan ini di konstruktor
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+       Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => InfoProduct(
+      imagePath: imagePath,
+      title: title,
+      price: price,
+      description: description,
+    ),
+  ),
+);
+      },
+      child: Card(
         margin: const EdgeInsets.all(8.0),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -64,6 +83,7 @@ import 'package:flutter/material.dart';
             ],
           ),
         ),
-      );
-    }
+      ),
+    );
   }
+}
