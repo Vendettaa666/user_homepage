@@ -14,13 +14,6 @@ class UserNavbar extends StatefulWidget {
 
 class UserNavbarState extends State<UserNavbar> {
   int currentPageIndex = 0;
-  bool showFab = false;
-
-  @override
-  void initState() {
-    super.initState();
-    showFab = true;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,34 +24,8 @@ class UserNavbarState extends State<UserNavbar> {
         const SearchPage(),
         const HistoryPage(),
         const ProfilePage(),
+        
       ][currentPageIndex],
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: showFab
-          ? FloatingActionButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Search'),
-                      content: const Text('Search feature is under development.'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Close'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              shape: const CircleBorder(),
-              child: const Icon(Icons.search, size: 28),
-            )
-          : null,
 
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -68,7 +35,6 @@ class UserNavbarState extends State<UserNavbar> {
           onDestinationSelected: (int index) {
             setState(() {
               currentPageIndex = index;
-              showFab = index == 0;
             });
           },
           indicatorColor: Colors.blue.withOpacity(0.5),
