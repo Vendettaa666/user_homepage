@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:user_homepage/main.dart';
 import 'package:user_homepage/screens/editprofile.dart';
+import 'package:user_homepage/screens/widget/popupmenu.dart';
+
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -28,53 +30,8 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
         actions: [
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.menu, color: Colors.white),
-            offset: const Offset(0, 40),
-            onSelected: (value) {
-              // Handle menu selection
-              debugPrint(value);
-            },
-            itemBuilder: (BuildContext context) {
-              return [
-                const PopupMenuItem(
-                  value: 'group',
-                  child: ListTile(
-                    leading: Icon(Icons.group),
-                    title: Text('New Group'),
-                  ),
-                ),
-                const PopupMenuItem(
-                  value: 'broadcast',
-                  child: ListTile(
-                    leading: Icon(Icons.campaign),
-                    title: Text('New Broadcast'),
-                  ),
-                ),
-                const PopupMenuItem(
-                  value: 'linked_devices',
-                  child: ListTile(
-                    leading: Icon(Icons.devices),
-                    title: Text('Linked Devices'),
-                  ),
-                ),
-                const PopupMenuItem(
-                  value: 'starred_messages',
-                  child: ListTile(
-                    leading: Icon(Icons.star),
-                    title: Text('Starred Messages'),
-                  ),
-                ),
-                const PopupMenuItem(
-                  value: 'settings',
-                  child: ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text('Settings'),
-                  ),
-                ),
-              ];
-            },
-          ),
+          CustomPopupMenu(),
+          
         ],
         backgroundColor: const Color(0xFF018ABE),
         elevation: 0,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:user_homepage/main.dart';
 import 'package:collection/collection.dart';
+import 'package:user_homepage/screens/widget/popupmenu.dart';
 
 class CartPage extends StatelessWidget {
   final List<Map<String, dynamic>>? cartItems;
 
-  const CartPage({Key? key, this.cartItems}) : super(key: key);
+  const CartPage({super.key, this.cartItems});
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +31,7 @@ class CartPage extends StatelessWidget {
           ),
         ),
         actions: [
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.menu, color: Colors.white),
-            offset: const Offset(0, 40),
-            onSelected: (value) {
-              print(value);
-            },
-            itemBuilder: (BuildContext context) {
-              return [
-                // ... (item menu)
-              ];
-            },
-          ),
+          CustomPopupMenu(),
         ],
         backgroundColor: const Color(0xFF018ABE),
       ),

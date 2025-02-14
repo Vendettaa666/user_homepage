@@ -7,12 +7,12 @@ class InfoProduct extends StatelessWidget {
   final String description;
 
   const InfoProduct({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.title,
     required this.price,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -160,10 +160,10 @@ class InfoProduct extends StatelessWidget {
 
 class TopRoundedContainer extends StatelessWidget {
   const TopRoundedContainer({
-    Key? key,
+    super.key,
     required this.color,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Color color;
   final Widget child;

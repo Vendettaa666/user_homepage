@@ -1,5 +1,6 @@
   import 'package:flutter/material.dart';
   import 'package:user_homepage/main.dart';
+  import 'package:user_homepage/screens/widget/popupmenu.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -27,55 +28,9 @@ class HistoryPage extends StatelessWidget {
           )
         ),
         actions: [
-              PopupMenuButton<String>(
-                icon: Icon(Icons.menu, color: Colors.white),
-                offset: Offset(0, 40),
-                onSelected: (value) {
-                  // Lakukan sesuatu berdasarkan pilihan
-                  print(value);
-                },
-                itemBuilder: (BuildContext context) {
-                  return [
-                    PopupMenuItem(
-                      value: 'group',
-                      child: ListTile(
-                        leading: Icon(Icons.group),
-                        title: Text('Grup baru'),
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 'broadcast',
-                      child: ListTile(
-                        leading: Icon(Icons.campaign),
-                        title: Text('Siaran baru'),
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 'linked_devices',
-                      child: ListTile(
-                        leading: Icon(Icons.devices),
-                        title: Text('Perangkat tertaut'),
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 'starred_messages',
-                      child: ListTile(
-                        leading: Icon(Icons.star),
-                        title: Text('Pesan berbintang'),
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 'settings',
-                      child: ListTile(
-                        leading: Icon(Icons.settings),
-                        title: Text('Setelan'),
-                      ),
-                    ),
-                  ];
-                },
-              ),
+              CustomPopupMenu(),
         ],
-        backgroundColor: Color(0xFF018ABE),
+        backgroundColor: Color.fromRGBO(1, 138, 190, 1),
       ),
     );
   }

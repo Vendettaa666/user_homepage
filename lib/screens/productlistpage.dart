@@ -3,7 +3,7 @@ import 'package:user_homepage/screens/widget/foodcard.dart';
 import 'package:user_homepage/screens/cart.dart';
 
 class ProductListPage extends StatefulWidget {
-  const ProductListPage({Key? key}) : super(key: key);
+  const ProductListPage({super.key});
 
   @override
   State<ProductListPage> createState() => _ProductListPageState();

@@ -9,12 +9,12 @@ class FoodCard extends StatelessWidget {
   final String description; // Tambahkan ini
 
   const FoodCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.title,
     required this.price,
     required this.description, // Tambahkan ini di konstruktor
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

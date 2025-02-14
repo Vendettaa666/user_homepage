@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:user_homepage/screens/widget/foodcard.dart';
+import 'package:user_homepage/screens/widget/popupmenu.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,9 @@ class HomePage extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         ),
         backgroundColor: const Color(0xFF018ABE),
+        actions: [
+          CustomPopupMenu(),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
