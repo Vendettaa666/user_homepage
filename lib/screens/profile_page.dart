@@ -42,7 +42,7 @@ class ProfilePage extends StatelessWidget {
           children: [
             const ProfilePic(image: "https://i.postimg.cc/cCsYDjvj/user-2.png"),
             Text(
-              "Administrator",
+              "User",
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class ProfilePage extends StatelessWidget {
             ),
             const Info(
               infoKey: "User ID",
-              info: "@admin",
+              info: "@user",
             ),
             const Info(
               infoKey: "Location",
@@ -66,7 +66,7 @@ class ProfilePage extends StatelessWidget {
             ),
             const Info(
               infoKey: "Email Address",
-              info: "admin@mail.com",
+              info: "usern@mail.com",
             ),
             const SizedBox(height: 24.0),
             Align(

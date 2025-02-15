@@ -75,28 +75,35 @@ class EditProfile extends StatelessWidget {
                     UserInfoEditField(
                       text: "Name",
                       child: TextFormField(
-                        initialValue: "Annette Black",
+                        initialValue: "User",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    UserInfoEditField(
+                      text: "Edit Username",
+                      child: TextFormField(
+                        initialValue: "@user",
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
                     UserInfoEditField(
                       text: "Email",
                       child: TextFormField(
-                        initialValue: "annette@gmail.com",
+                        initialValue: "User1@gmail.com",
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
                     UserInfoEditField(
                       text: "Phone",
                       child: TextFormField(
-                        initialValue: "(316) 555-0116",
+                        initialValue: "+62 00000000",
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
                     UserInfoEditField(
                       text: "Address",
                       child: TextFormField(
-                        initialValue: "New York, NVC",
+                        initialValue: "Lumajang",
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -104,7 +111,7 @@ class EditProfile extends StatelessWidget {
                       text: "Old Password",
                       child: TextFormField(
                         obscureText: true,
-                        initialValue: "demopass",
+                        initialValue: "user",
                         style: const TextStyle(color: Colors.white),
                         decoration: const InputDecoration(
                           suffixIcon: Icon(
