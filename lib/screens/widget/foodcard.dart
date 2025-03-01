@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_homepage/screens/procces_cart.dart'; 
 import 'package:user_homepage/screens/infoproduct.dart';
 
 
@@ -72,9 +73,35 @@ class FoodCard extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Tambahkan logika untuk menambahkan ke keranjang
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProcessCart(
+                                imagePath: imagePath,
+                                title: title,
+                                price: price,
+                              ),
+                            ),
+                          );
                         },
-                        child: const Text('Add To Cart'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF018ABE),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 32,
+                            vertical: 16,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: const Text(
+                          'Add to Cart',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   ],

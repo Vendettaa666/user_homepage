@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_homepage/screens/procces_cart.dart'; // Add this import
 
 class InfoProduct extends StatelessWidget {
   final String imagePath;
@@ -124,6 +125,16 @@ class InfoProduct extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProcessCart(
+                                  imagePath: imagePath,
+                                  title: title,
+                                  price: price,
+                                ),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF018ABE),
