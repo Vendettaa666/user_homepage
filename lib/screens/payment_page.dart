@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:user_homepage/main.dart';
+import 'package:user_homepage/screens/widget/popupmenu.dart';
+import 'package:qr_flutter/qr_flutter.dart'; // Import package qr_flutter
+// import halaman digital
+import 'package:user_homepage/screens/digital_payment_page.dart';
 
-class PaymentPage extends StatelessWidget {
+class PaymentPage extends StatefulWidget {
   final String imagePath;
   final String title;
   final String price;
@@ -15,131 +20,110 @@ class PaymentPage extends StatelessWidget {
   });
 
   @override
+  PaymentPageState createState() => PaymentPageState();
+}
+
+class PaymentPageState extends State<PaymentPage> {
+  String paymentMethod = 'Cash';
+  TextEditingController customerNameController = TextEditingController();
+  TextEditingController tableNumberController = TextEditingController();
+  TextEditingController customerNominalController = TextEditingController();
+  double totalAmount = 40000.0;
+  double changeAmount = 0.0;
+
+  void _handlePaymentConfirmation(double totalPrice) {
+    if (paymentMethod == 'Digital') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DigitalPaymentPage(amount: totalPrice),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pembayaran berhasil!')),
+      );
+      Navigator.pop(context);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double totalPrice = double.parse(price.replaceAll('Rp ', '')) * quantity;
+    double totalPrice =
+        double.parse(widget.price.replaceAll('Rp ', '')) * widget.quantity;
 
     return Scaffold(
-      backgroundColor: Colors.grey[200], // Latar belakang abu-abu muda
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+      backgroundColor: Color(0xFF018ABE),
+        appBar: AppBar(
+          leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => UserHomepage()),
+            );
+          },
+        ),
+          centerTitle: true,
+          title: Text(
+              "METODE PEMBAYARAN",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+              )
+          ),
+          actions: [
+              CustomPopupMenu(),
+        ],          
+        backgroundColor: Color(0xFF018ABE),
+        ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'admin home',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'DASHBOARD',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.menu, color: Colors.white),
-                          onPressed: () {
-                            // Implementasi fungsi menu
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Hi Admin!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.all(16.0),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[800],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'WELCOME ADMIN!',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
               Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          imagePath,
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
+                      const Text(
+                        'Informasi Pelanggan',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              title,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Price: $price',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Quantity: $quantity',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ],
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: customerNameController,
+                        decoration: InputDecoration(
+                          labelText: 'Nama Pelanggan',
+                          hintText: 'Masukkan nama pelanggan',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: tableNumberController,
+                        decoration: InputDecoration(
+                          labelText: 'Nomor Meja',
+                          hintText: 'Masukkan nomor meja',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
                         ),
                       ),
                     ],
@@ -147,56 +131,214 @@ class PaymentPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Detail Pesanan',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey[300]!),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: ListTile(
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.asset(widget.imagePath, width: 60, height: 60, fit: BoxFit.cover),
+                          ),
+                          title: Text(
+                            widget.title,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            'Harga: ${widget.price}',
+                            style: TextStyle(color: Colors.grey[700]),
+                          ),
+                        ),
+                      ),
+                    ],                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Metode Pembayaran',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: RadioListTile(
+                                title: const Text('Cash'),
+                                value: 'Cash',
+                                groupValue: paymentMethod,
+                                onChanged: (value) {
+                                  setState(() {
+                                    paymentMethod = value.toString();
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: RadioListTile(
+                                title: const Text('Digital'),
+                                value: 'Digital',
+                                groupValue: paymentMethod,
+                                onChanged: (value) {
+                                  setState(() {
+                                    paymentMethod = value.toString();
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Detail Pembayaran',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Total: Rp ${totalPrice.toStringAsFixed(3)}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: customerNominalController,
+                        decoration: InputDecoration(
+                          labelText: 'Nominal Pembayaran',
+                          hintText: 'Masukkan nominal pembayaran',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            double nominal = double.tryParse(value) ?? 0.0;
+                            changeAmount = nominal - totalPrice;
+                          });
+                        },
+                        keyboardType: TextInputType.number,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Kembalian: Rp ${changeAmount.toStringAsFixed(3)}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text(
-                    'Total:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
+                        'BATALKAN',
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
                     ),
                   ),
-                  Text(
-                    'Rp ${totalPrice.toStringAsFixed(3)}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+                  const SizedBox(width: 16),
+                 Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _handlePaymentConfirmation(totalPrice);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
+                        'KONFIRMASI',
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Implementasi logika pembayaran di sini
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Payment Successful!')),
-                    );
-                    Navigator.pop(context); // Kembali ke halaman sebelumnya
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    'Pay Now',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ],          ),
         ),
       ),
     );
